@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/hakluke/hakrawler/pkg/collector"
-	"github.com/hakluke/hakrawler/pkg/config"
+	"github.com/timwhitez/hakrawler/pkg/collector"
+	"github.com/timwhitez/hakrawler/pkg/config"
 	"github.com/logrusorgru/aurora"
 )
 
@@ -121,6 +121,29 @@ func main() {
 			// Report errors and flush requests to files as we go
 			if crawlErr != nil {
 				writeErrAndFlush(stdout, crawlErr.Error(), au)
+
+			}
+			if conf.Outdir != "" {
+				_, err := os.Stat(conf.Outdir)
+				if os.IsNotExist(err) {
+					errDir := os.MkdirAll(conf.Outdir, 0755)
+					if errDir != nil {
+						writeErrAndFlush(stdout, errDir.Error(), au)
+					}
+				}
+				err = printRequestsToRandomFiles(reqsMade, conf.Outdir)
+				if err != nil {
+					writeErrAndFlush(stdout, err.Error(), au)
+				}
+			}
+
+			//add https request method
+			a := strings.Split(url, "://")
+			url = a[1]
+			url = "https://" + url
+			reqsMade, crawlErr = c.Crawl(url)
+			if crawlErr != nil {
+				writeErrAndFlush(stdout, crawlErr.Error(), au)
 			}
 			if conf.Outdir != "" {
 				_, err := os.Stat(conf.Outdir)
@@ -136,7 +159,6 @@ func main() {
 					writeErrAndFlush(stdout, err.Error(), au)
 				}
 			}
-
 		}(u)
 	}
 
@@ -190,3 +212,4 @@ func printRequestsToRandomFiles(rs []*http.Request, dir string) error {
 	}
 	return nil
 }
+
