@@ -1,3 +1,8 @@
+# 20200303
+
+add -setproxy options
+add https request method
+
 # hakrawler
 
 [![Twitter](https://img.shields.io/badge/twitter-@hakluke_-blue.svg)](https://twitter.com/hakluke)
