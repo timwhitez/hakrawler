@@ -13,7 +13,7 @@ import (
 	"sync"
 
 	"github.com/gocolly/colly"
-	"github.com/hakluke/hakrawler/pkg/config"
+	"github.com/timwhitez/hakrawler/pkg/config"
 	sitemap "github.com/oxffaa/gopher-parse-sitemap"
 
 	"github.com/logrusorgru/aurora"
@@ -34,6 +34,14 @@ func NewCollector(config *config.Config, au aurora.Aurora, w io.Writer) *Collect
 		colly.MaxDepth(config.Depth),
 		colly.UserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"),
 	)
+	//add http proxy
+	rp, err := proxy.RoundRobinProxySwitcher("http://127.0.0.1:8080","https://127.0.0.1:8080")
+	if err != nil {
+		log.Fatal(err)
+	}
+	c.SetProxyFunc(rp)
+
+
 	// set custom headers if specified
 	if config.Cookie != "" {
 		c.OnRequest(func(r *colly.Request) {
