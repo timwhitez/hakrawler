@@ -11,8 +11,10 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"log"
 
 	"github.com/gocolly/colly"
+	"github.com/gocolly/colly/proxy"
 	"github.com/timwhitez/hakrawler/pkg/config"
 	sitemap "github.com/oxffaa/gopher-parse-sitemap"
 
