@@ -1,5 +1,7 @@
 package config
 
+
+
 // Config represents the configuration for both the Collector and cli.
 type Config struct {
 	Url           string
@@ -9,6 +11,7 @@ type Config struct {
 	AuthHeader    string
 	Scope         string
 	Version       string
+	SetProxy       string
 	Wayback       bool
 	Plain         bool
 	Runlinkfinder bool
@@ -36,6 +39,7 @@ func NewConfig() Config {
 	conf.Cookie = ""
 	conf.AuthHeader = ""
 	conf.Scope = "subs"
+	conf.SetProxy = ""
 	conf.Wayback = false
 	conf.Plain = false
 	conf.Runlinkfinder = false
