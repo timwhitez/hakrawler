@@ -42,7 +42,7 @@ func main() {
 	flag.BoolVar(&conf.Wayback, "usewayback", false, "Query wayback machine for URLs and add them as seeds for the crawler")
 	flag.BoolVar(&conf.Plain, "plain", false, "Don't use colours or print the banners to allow for easier parsing")
 	flag.BoolVar(&conf.Runlinkfinder, "linkfinder", false, "Run linkfinder on javascript files.")
-	flag.StringVar(&conf.SetProxy, "setproxy", "", "'127.0.0.1:1080'")
+	flag.StringVar(&conf.SetProxy, "setproxy", "", "ip:port")
 
 	// which data to include in output?
 	flag.BoolVar(&conf.DisplayVersion, "v", false, "Display version and exit")
