@@ -35,11 +35,13 @@ func NewCollector(config *config.Config, au aurora.Aurora, w io.Writer) *Collect
 		colly.UserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"),
 	)
 	//add http proxy
-	rp, err := proxy.RoundRobinProxySwitcher("http://127.0.0.1:8080","https://127.0.0.1:8080")
-	if err != nil {
-		log.Fatal(err)
+	if config.SetProxy != "" {
+		rp, err := proxy.RoundRobinProxySwitcher("http://"+config.SetProxy, "https://"+config.SetProxy)
+		if err != nil {
+			log.Fatal(err)
+		}
+		c.SetProxyFunc(rp)
 	}
-	c.SetProxyFunc(rp)
 
 
 	// set custom headers if specified
