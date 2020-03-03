@@ -1,4 +1,4 @@
-module github.com/hakluke/hakrawler
+module github.com/timwhitez/hakrawler
 
 go 1.12
 
