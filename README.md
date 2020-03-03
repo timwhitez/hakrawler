@@ -2,6 +2,8 @@
 
 add -setproxy options
 
+usage: -setproxy 127.0.0.1:8080
+
 add https request method
 
 # hakrawler
